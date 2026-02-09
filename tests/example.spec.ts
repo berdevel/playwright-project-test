@@ -1,18 +1,14 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test('Mi primera automatización profesional', async ({ page }) => {
+  // 1. Navegar
+  await page.goto('https://demo.playwright.dev/todomvc/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  // 2. Interactuar
+  const input = page.getByPlaceholder('What needs to be done?');
+  await input.fill('Aprender Playwright');
+  await input.press('Enter');
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  // 3. Validar
+  await expect(page.getByTestId('todo-title')).toHaveText(['Aprender Playwright']);
 });
